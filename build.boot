@@ -45,6 +45,7 @@
       (if (:build? data)
         (link (:attrs {:rel "manifest" :href "manifest.json"})))
       (meta'{:attrs {:charset "utf-8"}})
+      (meta' {:attrs {:name "viewport" :content "width=device-width, initial-scale=1"}})
       (style (use-text "body {margin: 0;}"))
       (style (use-text "body * {box-sizing: border-box;}"))
       (script {:attrs {:id "config" :type "text/edn" :innerHTML (pr-str data)}}))

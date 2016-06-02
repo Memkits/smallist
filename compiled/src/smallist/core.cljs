@@ -2,13 +2,18 @@
 (ns smallist.core
   (:require [respo-spa.core :refer [render]]
             [smallist.component.container :refer [comp-container]]
-            [cljs.reader :refer [read-string]]))
+            [cljs.reader :refer [read-string]]
+            [smallist.updater.core :refer [updater]]))
 
 (defonce store-ref (atom {}))
 
 (defonce states-ref (atom {}))
 
-(defn dispatch [op op-data])
+(defn dispatch [op op-data]
+  (let [op-time (.valueOf (js/Date.))
+        op-id op-time
+        store (updater @store-ref op op-data op-id op-time)]
+    (reset! store-ref store)))
 
 (defn render-app []
   (let [target (.querySelector js/document "#app")]

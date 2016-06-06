@@ -3,9 +3,10 @@
   (:require [respo-spa.core :refer [render]]
             [smallist.component.container :refer [comp-container]]
             [cljs.reader :refer [read-string]]
-            [smallist.updater.core :refer [updater]]))
+            [smallist.updater.core :refer [updater]]
+            [smallist.schema :as schema]))
 
-(defonce store-ref (atom {}))
+(defonce store-ref (atom schema/store))
 
 (defonce states-ref (atom {}))
 

@@ -2,7 +2,8 @@
 (ns smallist.component.todolist
   (:require [hsl.core :refer [hsl]]
             [respo.alias :refer [create-comp div input button]]
-            [smallist.component.task :refer [comp-task]]))
+            [smallist.component.task :refer [comp-task]]
+            [respo.component.debug :refer [comp-debug]]))
 
 (defn update-state [state text] text)
 
@@ -68,8 +69,9 @@
         {:style style-list}
         (->>
           tasks
-          (map (fn [task] [(:id task) (comp-task (val task))]))
-          (into {}))))))
+          (map (fn [entry] [(key entry) (comp-task (val entry))]))
+          (into (sorted-map))))
+      (comp-debug tasks {}))))
 
 (def comp-todolist
  (create-comp :todolist init-state update-state render))

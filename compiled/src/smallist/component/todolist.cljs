@@ -23,12 +23,14 @@
  {:line-height 2,
   :vertical-align "middle",
   :font-size "20px",
+  :margin-left "8px",
   :background-color (hsl 0 0 94),
   :flex 1,
   :padding "0 8px",
   :outline "none",
   :display "inline-block",
-  :border "none"})
+  :border "none",
+  :font-family "Roboto,Helvetica,sans-serif"})
 
 (def style-button
  {:line-height "40px",
@@ -42,7 +44,11 @@
   :height "40px",
   :margin "0px"})
 
-(def style-list {:background-color (hsl 0 0 96), :flex 1})
+(def style-list
+ {:background-color (hsl 0 0 96),
+  :flex 1,
+  :padding-top "16px",
+  :padding-bottom "16px"})
 
 (defn handle-input [mutate] (fn [e dispatch] (mutate (:value e))))
 
@@ -57,21 +63,21 @@
       {:style style-todolist}
       (div
         {:style style-header}
-        (input
-          {:style style-input,
-           :event {:input (handle-input mutate)},
-           :attrs {:value state}})
         (button
           {:style style-button,
            :event {:click (handle-add state mutate)},
-           :attrs {:inner-text "Add"}}))
+           :attrs {:inner-text "Add"}})
+        (input
+          {:style style-input,
+           :event {:input (handle-input mutate)},
+           :attrs {:placeholder "Type idea here...", :value state}}))
       (div
         {:style style-list}
         (->>
           tasks
           (map (fn [entry] [(key entry) (comp-task (val entry))]))
           (into (sorted-map))))
-      (comp-debug tasks {}))))
+      (comment comp-debug tasks {}))))
 
 (def comp-todolist
  (create-comp :todolist init-state update-state render))

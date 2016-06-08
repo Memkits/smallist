@@ -23,7 +23,7 @@
 (task-options!
   pom {:project     'memkits/smallist
        :version     +version+
-       :description "Workflow"
+       :description "Todolist example"
        :url         "https://github.com/Memkits/smallist"
        :scm         {:url "https://github.com/Memkits/smallist"}
        :license     {"MIT" "http://opensource.org/licenses/mit-license.php"}})
@@ -40,7 +40,7 @@
   (make-html
     (html {}
     (head {}
-      (title (use-text "Boot Workflow"))
+      (title (use-text "Smallist"))
       (link {:attrs {:rel "icon" :type "image/png" :href "mvc-works-192x192.png"}})
       (if (:build? data)
         (link (:attrs {:rel "manifest" :href "manifest.json"})))

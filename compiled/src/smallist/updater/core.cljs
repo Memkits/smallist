@@ -11,4 +11,6 @@
     (task/update-text store op-data op-id op-time)
     :task/toggle
     (task/toggle store op-data op-id op-time)
+    :task/rm
+    (task/rm-task store op-data op-id op-time)
     store))

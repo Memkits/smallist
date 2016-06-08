@@ -11,13 +11,17 @@
 
 (def style-todolist
  {:width "100%",
+  :flex-shrink 0,
   :display "flex",
   :position "absolute",
   :flex-direction "column",
   :height "100%"})
 
 (def style-header
- {:align-items "center", :flex-drection "row", :display "flex"})
+ {:align-items "center",
+  :display "flex",
+  :flex-direction "row",
+  :height "40px"})
 
 (def style-input
  {:line-height 2,
@@ -45,7 +49,8 @@
   :margin "0px"})
 
 (def style-list
- {:background-color (hsl 0 0 96),
+ {:overflow "auto",
+  :background-color (hsl 0 0 96),
   :flex 1,
   :padding-top "16px",
   :padding-bottom "16px"})

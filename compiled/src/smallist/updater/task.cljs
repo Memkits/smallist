@@ -13,6 +13,4 @@
 (defn toggle [db op-data op-id op-time]
   (-> db (update-in [op-data :done?] not)))
 
-(defn rm-task [db op-data op-id op-time]
-  (println db op-data)
-  (-> db (dissoc op-data)))
+(defn rm-task [db op-data op-id op-time] (-> db (dissoc op-data)))

@@ -27,7 +27,6 @@
  {:line-height 2,
   :vertical-align "middle",
   :font-size "20px",
-  :margin-left "8px",
   :background-color (hsl 0 0 94),
   :flex 1,
   :padding "0 8px",
@@ -55,33 +54,49 @@
   :padding-top "16px",
   :padding-bottom "16px"})
 
-(defn handle-input [mutate] (fn [e dispatch] (mutate (:value e))))
+(defn handle-input [e dispatch! mutate!] (mutate! (:value e)))
 
-(defn handle-add [state mutate]
-  (fn [e dispatch]
+(defn handle-add [state]
+  (fn [e dispatch! mutate!]
     (let [text state]
-      (if (> (count text) 0) (do (dispatch :add text) (mutate ""))))))
+      (if (> (count text) 0) (do (dispatch! :add text) (mutate! ""))))))
 
 (defn render [tasks]
-  (fn [state mutate]
+  (fn [state mutate!]
     (div
       {:style style-todolist}
       (div
         {:style style-header}
-        (button
-          {:style style-button,
-           :event {:click (handle-add state mutate)},
-           :attrs {:inner-text "Add"}})
         (input
           {:style style-input,
-           :event {:input (handle-input mutate)},
-           :attrs {:placeholder "Type idea here...", :value state}}))
+           :event {:input handle-input},
+           :attrs {:placeholder "Type idea here...", :value state}})
+        (button
+          {:style style-button,
+           :event {:click (handle-add state)},
+           :attrs {:inner-text "Add"}}))
       (div
         {:style style-list}
-        (->>
-          tasks
-          (map (fn [entry] [(key entry) (comp-task (val entry))]))
-          (into (sorted-map))))
+        (div
+          {}
+          (->>
+            tasks
+            (sort
+              (fn [entry-a entry-b]
+                (- (:id (val entry-b)) (:id (val entry-a)))))
+            (filter (fn [entry] (not (:done? (val entry)))))
+            (map-indexed
+              (fn [index entry] [index (comp-task (val entry))]))))
+        (div
+          {}
+          (->>
+            tasks
+            (sort
+              (fn [entry-a entry-b]
+                (- (:id (val entry-b)) (:id (val entry-a)))))
+            (filter (fn [entry] (:done? (val entry))))
+            (map-indexed
+              (fn [index entry] [index (comp-task (val entry))])))))
       (comment comp-debug tasks {}))))
 
 (def comp-todolist

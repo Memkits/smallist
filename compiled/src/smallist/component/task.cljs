@@ -18,7 +18,6 @@
 (def style-input
  {:line-height 2,
   :font-size "18px",
-  :margin-left "10px",
   :flex 1,
   :padding "0 8px",
   :outline "none",
@@ -41,20 +40,23 @@
   :height "40px"})
 
 (defn handle-input [task-id]
-  (fn [e dispatch] (dispatch :task/text [task-id (:value e)])))
+  (fn [e dispatch! mutate!]
+    (dispatch! :task/text [task-id (:value e)])))
 
 (defn handle-toggle [task-id]
-  (fn [e dispatch] (dispatch :task/toggle task-id)))
+  (fn [e dispatch! mutate!] (dispatch! :task/toggle task-id)))
 
-(defn handle-rm [task-id] (fn [e dispatch] (dispatch :task/rm task-id)))
+(defn handle-rm [task-id]
+  (fn [e dispatch! mutate!] (dispatch! :task/rm task-id)))
 
 (defn render [task]
-  (fn [state mutate]
+  (fn [state mutate!]
     (div
       {:style style-task}
       (div
         {:style (style-toggle (:done? task)),
          :event {:click (handle-toggle (:id task))}})
+      (comp-space 8 nil)
       (input
         {:style style-input,
          :event {:input (handle-input (:id task))},
@@ -62,6 +64,6 @@
       (comp-space 8 nil)
       (button
         {:style style-rm, :event {:click (handle-rm (:id task))}})
-      (comment comp-debug task {}))))
+      (comment comp-debug task {:z-index 100, :left 100}))))
 
 (def comp-task (create-comp :task render))

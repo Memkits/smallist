@@ -1,14 +1,13 @@
 
 (set-env!
- :dependencies '[[org.clojure/clojurescript "1.8.40"      :scope "test"]
+ :dependencies '[[org.clojure/clojurescript "1.9.36"      :scope "test"]
                  [org.clojure/clojure       "1.8.0"       :scope "test"]
-                 [adzerk/boot-cljs          "1.7.170-3"   :scope "test"]
-                 [adzerk/boot-reload        "0.4.6"       :scope "test"]
-                 [cirru/boot-cirru-sepal    "0.1.7"       :scope "test"]
+                 [adzerk/boot-cljs          "1.7.228-1"   :scope "test"]
+                 [adzerk/boot-reload        "0.4.8"       :scope "test"]
+                 [cirru/boot-cirru-sepal    "0.1.8"       :scope "test"]
                  [adzerk/boot-test          "1.1.1"       :scope "test"]
                  [mvc-works/hsl             "0.1.2"]
-                 [mvc-works/respo           "0.1.22"]
-                 [mvc-works/respo-spa       "0.1.3"]])
+                 [mvc-works/respo           "0.3.0"]])
 
 (require '[adzerk.boot-cljs   :refer [cljs]]
          '[adzerk.boot-reload :refer [reload]]
@@ -98,10 +97,9 @@
     (target)))
 
 (deftask rsync []
-  (fn [next-task]
-    (fn [fileset]
-      (sh "rsync" "-r" "target/" "tiye:repo/Memkits/smallist" "--exclude" "main.out" "--delete")
-      (next-task fileset))))
+  (with-pre-wrap fileset
+    (sh "rsync" "-r" "target/" "tiye:repo/Memkits/smallist" "--exclude" "main.out" "--delete")
+      fileset))
 
 (deftask send-tiye []
   (comp

@@ -5,14 +5,16 @@
             [app.comp.container :refer [comp-container]]
             [cljs.reader :refer [read-string]]
             [app.updater.core :refer [updater]]
-            [app.schema :as schema]))
+            [app.schema :as schema]
+            ["shortid" :as shortid]))
 
 (defonce *store (atom schema/store))
 
 (defn dispatch! [op op-data]
-  (let [next-store (if (= op :states)
+  (let [op-id (.generate shortid)
+        next-store (if (= op :states)
                      (update @*store :states (mutate op-data))
-                     (updater @*store op op-data))]
+                     (updater @*store op op-data op-id))]
     (reset! *store next-store)))
 
 (def mount-target (.querySelector js/document ".app"))

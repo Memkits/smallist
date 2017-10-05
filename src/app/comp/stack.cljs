@@ -9,7 +9,8 @@
 (def style-page
   {:transition-duration "400ms",
    :transition-timing-function :ease-in-out,
-   :position :absolute})
+   :position :absolute,
+   :background-color :white})
 
 (defcomp
  comp-stack
@@ -21,10 +22,17 @@
         (fn [idx router]
           [idx
            (if (nil? router)
-             (div {:style (merge ui/fullscreen style-page {:left "100%"})})
+             (div
+              {:style (merge ui/fullscreen style-page {:left "100%", :opacity 0.7})}
+              (div
+               {:style {:width 300, :height 16, :background-color (hsl 0 0 90), :margin 8}})
+              (div
+               {:style {:width 260, :height 16, :background-color (hsl 0 0 90), :margin 8}})
+              (div
+               {:style {:width 280, :height 16, :background-color (hsl 0 0 90), :margin 8}}))
              (div
               {:style (merge
                        ui/fullscreen
                        style-page
-                       {:background-color :white, :left "0%", :opacity 1})}
+                       {:left (str (* 100 (inc (- idx (count stack)))) "%"), :opacity 1})}
               (renderer (:name router) (:data router))))])))))

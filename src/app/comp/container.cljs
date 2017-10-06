@@ -9,7 +9,8 @@
             [app.comp.stack :refer [comp-stack]]
             [app.comp.dashboard :refer [comp-dashboard]]
             [app.comp.missing :refer [comp-missing]]
-            [app.comp.create :refer [comp-create]]))
+            [app.comp.create :refer [comp-create]]
+            [app.comp.task-editor :refer [comp-task-editor]]))
 
 (def style-container
   {:overflow :hidden,
@@ -22,7 +23,7 @@
 (defcomp
  comp-container
  (store)
- (let [states (:states store)]
+ (let [states (:states store), tasks (:tasks store)]
    (div
     {:style (merge ui/global ui/column style-container)}
     (comp-stack
@@ -31,6 +32,7 @@
        (case page
          :dashboard (comp-dashboard (:tasks store))
          :create (cursor-> :create comp-create states page-data)
+         :task-editor (cursor-> :task-editor comp-task-editor states (get tasks page-data))
          (comp-missing page page-data))))
     (div
      {}

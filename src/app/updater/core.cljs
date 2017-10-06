@@ -8,4 +8,5 @@
     :task/create
       (assoc-in store [:tasks op-id] (merge schema/task {:id op-id, :text op-data}))
     :task/toggle (update-in store [:tasks op-data :done?] not)
+    :task/edit (assoc-in store [:tasks (:id op-data) :text] (:text op-data))
     (do (println "Unknown op:" op) store)))

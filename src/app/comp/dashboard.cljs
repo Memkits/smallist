@@ -54,4 +54,12 @@
                :style {:cursor :pointer, :color (hsl 0 0 80), :font-size 18},
                :on {:click (fn [e d! m!] (d! :task/toggle (:id task)))}})
              (=< 16 nil)
-             (span {:inner-text (:text task), :cursor :pointer}))]))))))
+             (span
+              {:inner-text (:text task),
+               :cursor :pointer,
+               :on {:click (fn [e d! m!]
+                      (d! :stack/push-page {:name :task-editor, :data (:id task)})
+                      (js/setTimeout
+                       (fn [timestamp]
+                         (.focus (.querySelector js/document ".el-editor-box")))
+                       300))}}))]))))))

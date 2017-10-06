@@ -4,7 +4,8 @@
   (:require [hsl.core :refer [hsl]]
             [respo-ui.style :as ui]
             [respo.core :refer [create-comp]]
-            [respo.comp.space :refer [=<]]))
+            [respo.comp.space :refer [=<]]
+            [app.comp.header :refer [comp-header]]))
 
 (def style-page
   {:transition-duration "400ms",
@@ -24,6 +25,7 @@
            (if (nil? router)
              (div
               {:style (merge ui/fullscreen style-page {:left "100%", :opacity 0.7})}
+              (comp-header "Closing")
               (div
                {:style {:width 300, :height 16, :background-color (hsl 0 0 90), :margin 8}})
               (div

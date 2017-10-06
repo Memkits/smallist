@@ -16,7 +16,8 @@
    :width "100%",
    :height "100%",
    :position :absolute,
-   :background-color (hsl 0 0 90)})
+   :background-color (hsl 0 0 90),
+   :font-size 16})
 
 (defcomp
  comp-container

@@ -14,11 +14,16 @@
    (div
     {}
     (comp-header "Create task")
-    (textarea
-     {:placeholder "Task",
-      :value state,
-      :style {:width "100%", :min-height 200},
-      :on {:input (fn [e d! m!] (m! (:value e)))}})
+    (div
+     {:style ui/row}
+     (textarea
+      {:placeholder "Task",
+       :value state,
+       :class-name "el-create-box",
+       :style (merge
+               ui/flex
+               {:width :auto, :min-height 200, :padding "8px", :margin "8px 8px"}),
+       :on {:input (fn [e d! m!] (m! (:value e)))}}))
     (div
      {:style (merge ui/row-center {:justify-content :flex-end, :padding "0 8px"})}
      (span

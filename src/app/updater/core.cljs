@@ -7,4 +7,5 @@
     :stack/pop-page (update store :stack pop)
     :task/create
       (assoc-in store [:tasks op-id] (merge schema/task {:id op-id, :text op-data}))
+    :task/toggle (update-in store [:tasks op-data :done?] not)
     (do (println "Unknown op:" op) store)))

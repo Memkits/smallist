@@ -8,7 +8,13 @@
 
 (defn comp-header [title]
   (div
-   {:style (merge ui/row {:justify-content :space-between, :padding "0 8px"})}
+   {:style (merge
+            ui/row
+            {:justify-content :space-between,
+             :padding "0 8px",
+             :background-color (hsl 200 80 80),
+             :color :white,
+             :line-height "40px"})}
    (<> span title nil)
    (span
     {:inner-text "close",

@@ -1,15 +1,15 @@
 {
-  "short_name": "Workflow",
-  "name": "Workflow",
+  "short_name": "Smallist",
+  "name": "Smallist",
   "icons": [
     {
-      "src": "http://logo.mvc-works.org/mvc.png",
-      "sizes": "460x460"
+      "src": "http://repo-cdn.b0.upaiyun.com/logo/mvc-works.png",
+      "sizes": "320x320"
     }
   ],
   "start_url": "index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#eeeeff",
-  "theme_color": "#eeeeff"
+  "background_color": "#eeffee",
+  "theme_color": "#eeffee"
 }

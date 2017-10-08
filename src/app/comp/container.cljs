@@ -10,7 +10,8 @@
             [app.comp.dashboard :refer [comp-dashboard]]
             [app.comp.missing :refer [comp-missing]]
             [app.comp.create :refer [comp-create]]
-            [app.comp.task-editor :refer [comp-task-editor]]))
+            [app.comp.task-editor :refer [comp-task-editor]]
+            [reel.comp.reel :refer [comp-reel]]))
 
 (def style-container
   {:overflow :hidden,
@@ -22,8 +23,8 @@
 
 (defcomp
  comp-container
- (store)
- (let [states (:states store), tasks (:tasks store)]
+ (reel)
+ (let [store (:store reel), states (:states store), tasks (:tasks store)]
    (div
     {:style (merge ui/global ui/column style-container)}
     (comp-stack
@@ -39,4 +40,5 @@
      (span
       {:inner-text "Launch Dashboard",
        :on {:click (fn [e d! m!] (d! :stack/push-page {:name :dashboard}))}}))
-    (<> (:stack store)))))
+    (<> (:stack store))
+    (comp-reel reel {}))))

@@ -6,7 +6,7 @@
             [app.updater.core :refer [updater]]
             [app.schema :as schema]
             [reel.util :refer [id!]]
-            [reel.core :refer [reel-updater *code handle-reload!]]
+            [reel.core :refer [reel-updater refresh-reel listen-devtools!]]
             [reel.schema :as reel-schema]))
 
 (defonce *reel (atom (merge reel-schema/reel {:base schema/store, :store schema/store})))
@@ -17,8 +17,7 @@
 
 (def mount-target (.querySelector js/document ".app"))
 
-(defn render-app! [renderer]
-  (renderer mount-target (comp-container (:store @*reel)) dispatch!))
+(defn render-app! [renderer] (renderer mount-target (comp-container @*reel) dispatch!))
 
 (def ssr? (some? (js/document.querySelector "meta.respo-ssr")))
 
@@ -26,12 +25,12 @@
   (if ssr? (render-app! realize-ssr!))
   (render-app! render!)
   (add-watch *reel :changes (fn [] (render-app! render!)))
-  (reset! *code {:base schema/store, :updater updater, :view comp-container})
+  (listen-devtools! "a" dispatch!)
   (println "App started."))
 
 (defn reload! []
-  (handle-reload! schema/store updater comp-container *reel clear-cache!)
-  (render-app! render!)
+  (clear-cache!)
+  (reset! *reel (refresh-reel @*reel schema/store updater))
   (println "Code updated."))
 
 (set! (.-onload js/window) main!)

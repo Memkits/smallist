@@ -5,7 +5,7 @@
                 [respo/ui               "0.1.9"]
                 [respo/reel             "0.2.0-alpha3"]
                 [respo                  "0.6.4"]]
- :http {:host "192.168.99.228" :port 8081}
+ :http {:host "localhost" :port 8081}
  :open-file-command ["subl" ["%s:%s:%s" :file :line :column]]
  :builds {:browser {:target :browser
                     :output-dir "target/browser"

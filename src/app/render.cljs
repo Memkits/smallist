@@ -13,7 +13,7 @@
    ""
    (merge
     base-info
-    {:styles ["http://192.168.99.228:8100/main.css"],
+    {:styles ["http://localhost:8100/main.css"],
      :scripts ["/main.js" "/browser/lib.js" "/browser/main.js"]})))
 
 (def preview? (= "preview" js/process.env.prod))

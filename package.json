@@ -10,7 +10,7 @@
     "release": "shadow-cljs release browser --debug",
     "watch": "shadow-cljs watch browser",
     "compile-ssr": "shadow-cljs compile ssr",
-    "html-dev": "env=dev node target/ssr.js",
+    "html-dev": "env=dev node target/ssr.js && cp entry/manifest.json target",
     "html": "node target/ssr.js",
     "hmr": "webpack-dev-server --config webpack.dev.coffee --hot-only",
     "webpack": "webpack --config webpack.release.coffee --hide-modules --progress",

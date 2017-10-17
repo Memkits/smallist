@@ -6,7 +6,7 @@
             [app.schema :as schema]))
 
 (def base-info
-  {:title "Smalllist", :icon "http://repo-cdn.b0.upaiyun.com/logo/mvc-works.png", :ssr nil})
+  {:title "Smalllist", :icon "http://cdn.tiye.me/logo/mvc-works.png", :ssr nil})
 
 (defn dev-page []
   (make-page
@@ -22,13 +22,13 @@
   (let [html-content (make-string (comp-container schema/store))
         webpack-info (.parse js/JSON (slurp "dist/webpack-manifest.json"))
         cljs-info (.parse js/JSON (slurp "dist/cljs-manifest.json"))
-        cdn (if preview? "" "http://repo-cdn.b0.upaiyun.com/smallist/")
+        cdn (if preview? "" "http://cdn.tiye.me/smallist/")
         prefix-cdn (fn [x] (str cdn x))]
     (make-page
      html-content
      (merge
       base-info
-      {:styles ["http://repo-cdn.b0.upaiyun.com/favored-fonts/main.css"
+      {:styles ["http://cdn.tiye.me/favored-fonts/main.css"
                 (prefix-cdn (aget webpack-info "main.css"))],
        :scripts (map
                  prefix-cdn
